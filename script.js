@@ -222,3 +222,35 @@ kvButtons.forEach((button) => {
   video?.addEventListener("ended", finishHeroVideo);
 });
 renderKvChecklist();
+
+// ── Anomaly Spotlight System ──
+// One element glows at a time. When the next enters, the previous fades out.
+const anomalyTargets = document.querySelectorAll("[data-anomaly]");
+let currentAnomaly = null;
+
+if ("IntersectionObserver" in window && anomalyTargets.length > 0) {
+  const anomalyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const target = entry.target;
+        if (target === currentAnomaly) return;
+
+        // Fade out previous
+        if (currentAnomaly) {
+          currentAnomaly.classList.remove("is-anomaly-active");
+          currentAnomaly.classList.add("is-anomaly-fading");
+        }
+
+        // Activate new
+        target.classList.remove("is-anomaly-fading");
+        target.classList.add("is-anomaly-active");
+        currentAnomaly = target;
+      });
+    },
+    { rootMargin: "-30% 0px -30% 0px", threshold: 0.5 },
+  );
+
+  anomalyTargets.forEach((target) => anomalyObserver.observe(target));
+}
