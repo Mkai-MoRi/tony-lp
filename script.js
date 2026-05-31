@@ -2,39 +2,56 @@
   ■ script.js ガイド
 
   【定数】
-    TICKET_URL … チケットリンク先。変更するとページ内の全 .js-ticket-link に反映。
-    SHARE_TEXT … Xシェア時の投稿テキスト。
+    TICKET_URL           … チケットリンク先。変更するとページ内の全 .js-ticket-link に反映。
+    SHARE_TEXT            … Xシェア時の投稿テキスト。
+    CHECKLIST_NAV_DELAY_MS … チェックリストCTAのチェックアニメーション後の遷移遅延（現在380ms）。
+    ANOMALY_FADE_MS      … anomalyのfadingクラス除去までの時間（現在500ms）。
 
-  【主な機能】
-    1. チケットリンク自動置換（.js-ticket-link / .js-x-share）
-    2. ヘッダー表示制御（スクロール検知 → page-has-scrolled / is-scrolled）
-    3. 固定CTA表示（[data-intro-cta] を通過したら表示）
-    4. ハンバーガーメニュー開閉
-    5. スクロールReveal（.reveal → .is-visible）
-    6. KVチェックリスト（3つ全チェック → 目の動画再生 → 3つ目だけ戻す）
-    7. Anomalyスポットライト（後述）
+  【主な機能と実行順】
+    1. チケットリンク自動置換（.js-ticket-link の href を TICKET_URL に）
+    2. チェックリストCTAアニメーション（.cta-button--checklist クリック → チェック → 遷移）
+    3. Xシェアリンク生成（.js-x-share の href を SHARE_TEXT から生成）
+    4. href="#" リンクの preventDefault
+    5. ヘッダー表示制御（スクロール18px以上 → page-has-scrolled / is-scrolled）
+    6. 固定CTA表示（[data-intro-cta] を通過したら show-fixed-cta）
+    7. ハンバーガーメニュー開閉（Escキーでも閉じる）
+    8. スクロールReveal（.reveal → .is-visible、一度だけ、unobserve）
+    9. KVチェックリスト（3つ全チェック → フリッカー → 目の動画再生5.3秒 → 戻しフリッカー → 3つ目だけ外す）
+       モバイル時は kv-mobile-cat-1/2.mp4 からランダム選択
+   10. Anomalyスポットライト（後述）
 
   【Anomaly スポットライトシステム】
-    data-anomaly 属性のついたテキストを IntersectionObserver で監視。
-    画面中央に来ると is-anomaly-active が付き、次のが来ると前のは is-anomaly-fading に。
-    常に「光っているのは1つだけ」。
 
     ＜通常のanomaly＞
-      [data-anomaly] を付けた要素は自動で監視対象になる。
-      ただし [data-anomaly-sequence] の子要素は除外される（後述のシーケンスで制御）。
+      [data-anomaly] を付けた要素が自動で監視対象になる。
+      ただし [data-anomaly-sequence] の子要素は除外される。
+
+      仕組み：
+      - IntersectionObserver + scroll/resize イベントで syncAnomalySpotlight() を呼ぶ
+      - getVisibleAnomalyTargets() で検知バンド内（bandTop〜bandBottom）の要素を取得
+      - 複数ある場合は画面中央（x,y）に最も近い要素が優先（Math.hypotで距離計算）
+      - activateAnomaly() で is-anomaly-active を付与、前のは deactivateAnomaly() でフェード
+      - フェードタイマーは WeakMap で要素ごとに管理。再アクティブ時にキャンセルしてちらつき防止
 
     ＜シーケンスanomaly＞
       親要素に data-anomaly-sequence を付けると、その中の [data-anomaly] は
-      時間差で順番に光る連続演出になる（1.4秒間隔）。
-      親が画面に入ると開始、出ると全リセット。
-      間隔は advanceSequence 内の setTimeout の値（現在1400ms）で調整。
+      時間差で順番に光る連続演出になる。
+      - 親が画面に入ると advanceSequence() が開始（1.4秒間隔）
+      - 前の要素は is-anomaly-fading に、次の要素が is-anomaly-active に
+      - 親が画面外に出ると clearSequence() で全リセット
 
     ＜検知範囲の調整＞
-      anomalyObserver:   rootMargin "-30% 0px -30% 0px", threshold 0.5
-      sequenceObserver:  threshold 0.45
+      getVisibleAnomalyTargets() 内：
+        bandTop  = viewportHeight * 0.3  ← 検知バンドの上端（画面の30%位置）
+        bandBottom = viewportHeight * 0.7 ← 検知バンドの下端（画面の70%位置）
+      anomalyObserver: rootMargin "-30% 0px -30% 0px", threshold [0, 0.25, 0.5, 0.75, 1]
+      sequenceObserver: threshold 0.45
 
     ＜速度の調整＞
-      CSSの .anomaly-text の transition で制御（styles.css 末尾）。
+      光る速度   → styles.css .anomaly-text の transition（現在0.2s）
+      消える速度 → styles.css .anomaly-text.is-anomaly-fading の transition（現在0.5s）
+      フェードクラス除去 → ANOMALY_FADE_MS 定数（現在500ms、CSSと合わせる）
+      シーケンス間隔     → advanceSequence 内 setTimeout（現在1400ms）
 */
 
 const TICKET_URL = "https://l-tike.com/twilight.co.jp/cleaning/";

@@ -22,9 +22,14 @@
       → anomalyシステム専用。後述。
 
   ■ Anomaly スポットライトシステム
-    「おかしな出来事」など異常キーワードが、スクロールで画面中央に来ると
-    ベースより強いglowで光り、次のキーワードが来ると前のが消えます。
+    「おかしな出来事」など異常キーワードが、スクロールで画面下部付近に来ると
+    ベースより強いglowで文字色が光り、次のキーワードが来ると前のが消えます。
     常に「今光っているのは1つだけ」。
+
+    複数の anomaly が同時に検知バンド内に入った場合は、
+    画面中央に最も近い要素が優先的に光ります。
+    フェード中に同じ要素が再アクティブ化された場合、
+    タイマーがキャンセルされてちらつきません（WeakMapで管理）。
 
     【追加方法（単体）】
     光らせたいテキストを以下で囲む：
@@ -38,6 +43,7 @@
         <span class="anomaly-text" data-anomaly>次に光る</span>テキスト
       </p>
     親が画面に入ると1.4秒間隔で順番に光り、画面外に出ると全リセット。
+    ※ シーケンス内の anomaly は通常の単体anomalyからは除外される（二重発火しない）。
 
     【解除方法】
     <span> を外して中のテキストだけ残す。
@@ -45,7 +51,7 @@
 
     【現在anomalyが付いているテキスト】
     - 「おかしな出来事」（イントロ内メール / ステップ04見出し / ステップ04本文）
-    - 「あなたは」「閉館後の美術館へ潜入」（イントロ、シーケンス演出）
+    - 「あなたは」「閉館後の美術館へ潜入」（イントロ、data-anomaly-sequence シーケンス演出）
     - 「世界の見え方が少し変わってしまう」（イントロ末尾）
     - 「動き出す展示物」「呪いの絵」「取り憑いてくる作品」（Company File内）
     - 「自分自身を見失ったり、作品に魅了されないように」（ステップ04末尾）
@@ -53,22 +59,37 @@
 
     【速度調整】
     styles.css 末尾の Anomaly Spotlight System セクション内：
-    - .anomaly-text の transition → 光る速度（現在 0.2s）
-    - .anomaly-text.is-anomaly-fading の transition → 消える速度（現在 0.5s）
-    - シーケンスの間隔 → script.js の advanceSequence 内 setTimeout（現在 1400ms）
+    - .anomaly-text の transition        → 光る速度（現在 0.2s）
+    - .anomaly-text.is-anomaly-fading    → 消える速度（現在 0.5s）
+    - script.js ANOMALY_FADE_MS 定数     → fading クラスの除去タイミング（現在 500ms）
+    - シーケンスの間隔                    → script.js advanceSequence 内 setTimeout（現在 1400ms）
 
     【検知範囲調整】
-    script.js 内の各 Observer を変更：
-    - anomalyObserver:  rootMargin "-30% 0px -30% 0px", threshold 0.5
-    - sequenceObserver: threshold 0.45
+    script.js 内で調整：
+    - getVisibleAnomalyTargets() の bandTop / bandBottom
+      → 画面の何%〜何%の範囲で検知するか（現在 30%〜70%）
+    - anomalyObserver の rootMargin / threshold
+      → IntersectionObserver の発火条件（現在 "-30% 0px -30% 0px", [0, 0.25, 0.5, 0.75, 1]）
+    - sequenceObserver の threshold（現在 0.45）
+    ※ scroll / resize イベントでも syncAnomalySpotlight() が呼ばれるため、
+      バンド内で最も画面中央に近い要素がリアルタイムで切り替わる。
+
+  ■ 固定CTA（チェックリスト型）
+    .cta-button--checklist はクリック時にチェックアニメーション（is-checked）を再生し、
+    380ms後にチケットURLへ遷移する。prefers-reduced-motion 時は即遷移。
+    連打防止として is-checking クラスで制御。
 
   ■ その他の仕組み
-    .reveal         → 要素にこのクラスを付けるとスクロールでフェードイン表示。
-    .js-ticket-link → href が script.js の TICKET_URL 定数に自動置換される。
-    .js-x-share     → X（Twitter）シェアリンクが自動生成される。
-    [data-kv-item]  → KVチェックリストボタン。3つ全チェックで目の動画再生。
-    [data-header]   → ヘッダーのスクロール表示制御用。
-    [data-intro-cta] → この要素を通過すると固定CTAが表示される。
+    .reveal          → 要素にこのクラスを付けるとスクロールでフェードイン表示。
+                       rootMargin "0px 0px -12% 0px", threshold 0.12 で発火。一度表示したら解除。
+    .js-ticket-link  → href が script.js の TICKET_URL 定数に自動置換される。
+    .js-x-share      → X（Twitter）シェアリンクが SHARE_TEXT から自動生成される。
+    [data-kv-item]   → KVチェックリストボタン。3つ全チェックで目の切替動画再生。
+                       動画は5.3秒後に自動終了し、3つ目のチェックだけ外れて注意パルスが出る。
+                       モバイルではランダムに猫動画（kv-mobile-cat-1/2.mp4）が選ばれる。
+    [data-header]    → ヘッダーのスクロール表示制御用。18px以上スクロールで表示。
+    [data-intro-cta] → この要素を通過すると画面下部の固定CTAが表示される。
+    Escキー          → ハンバーガーメニューを閉じる。
 -->
 <!doctype html>
 <html lang="ja">

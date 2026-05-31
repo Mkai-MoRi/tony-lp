@@ -1,14 +1,50 @@
 /*
   ■ CSS カラー変数ガイド
-    --accent / --accent-dark … ピンク。ベースカラー。CTA・ラベル・ボーダー等に広く使用。
-    --violet                 … 紫。グラデーションのアクセントに。
-    --ice                    … アイスブルー。情報補助色（時間・リンク・受付）。
-    --text / --muted / --dim … 白〜グレー。本文・補足テキスト。
-    --line / --line-soft     … ボーダー・区切り線。
-    --panel / --panel-strong … カード・ボードの背景。
-    --paper / --ink          … メール風UIなど明るい背景向け。
+    --bg / --bg-soft         … ページ背景。ほぼ黒。
+    --accent (#ff1f75)       … ピンク。ベースカラー。CTA・ラベル・ボーダー・区切り線に広く使用。
+    --accent-dark            … 暗めのピンク。チェックボックス等。
+    --violet (#7a45ff)       … 紫。CTAグラデーション・グリッチノイズ等のアクセント。
+    --ice (#a8edff)          … アイスブルー。情報補助色（時間・リンク・受付・テキストリンク）。
+    --text (#fffaf7)         … メインテキスト。ほぼ白。
+    --muted                  … 薄いグレー紫。補足テキスト・prose本文。
+    --dim                    … 暗いグレー。控えめなラベル。
+    --line                   … ピンク透過。セクション区切り線・ボーダー。
+    --line-soft              … 白透過。カード・パネルの微弱ボーダー。
+    --panel / --panel-strong … カード・ボードの半透明背景。
+    --paper / --ink          … メール風UIなど明るい背景向け（イントロのメールカード）。
+    --header-height          … ヘッダー高さ（68px）。メニュー位置計算にも使用。
+
+  ■ 主なCSSクラスとその役割
+    .reveal / .is-visible    … スクロールフェードイン。JSが .is-visible を付与。
+    .cta-button              … ピンク→紫グラデーションのCTAボタン。
+    .cta-button--checklist   … チェックリスト型の固定CTA。.is-checking / .is-checked で制御。
+    .section-kicker           … セクション上部の英語ラベル（Event Information等）。
+    .info-board / .info-row  … 開催情報ボード。.info-row--date は強調背景付き。
+    .step-card / .step-number … 体験の流れステップ。左ボーダーがアクセント。
+    .profile-card            … detailsベースの開閉式プロフィール。
+    .concept-card            … ピンク/紫グラデーションボーダーのコンセプト説明。
+    .company-brief           … アイスブルー系ボーダーのCompany File。
+    .exhibition-stage        … 展覧会情報カード。バッジ・メタ情報付き。
+    .faq-list details        … FAQ。Q.マーク付き。+/−で開閉。
+    .notice-sheet            … 注意事項グリッド。720px以上で2カラム。
+    .credit-grid             … クレジット。560px/960pxでカラム数変化。
+    .cat-walk                … 猫グリッチ動画。mix-blend-mode: screen で合成。
+    .glitch-overlay          … フルスクリーングリッチ演出。.is-active で表示。
+    .kv-check                … KVチェックリスト。.is-checked でチェックマーク表示。
+
+  ■ レスポンシブブレークポイント
+    760px  … モバイル→デスクトップ切替。ハンバーガー非表示、KV切替、2カラムレイアウト。
+    600px  … 展覧会メタ情報3カラム化。
+    560px  … クレジット2カラム化。
+    420px  … クレジットの狭幅フォールバック。
+    960px  … クレジット3カラム化。
+    1040px … 開催情報2カラム化、プロフィール3カラム化。
 
   ■ anomalyシステムのCSS → ファイル末尾「Anomaly Spotlight System」セクション参照
+    .anomaly-text                   … 基本スタイル（color: inherit + transition）
+    .anomaly-text.is-anomaly-active … 強発光（色変更 + text-shadow 多重）
+    .anomaly-text.is-anomaly-fading … フェードアウト（inheritに戻る + 遅いtransition）
+    .closing-line .anomaly-text     … クロージングライン用の特別強化版
 */
 
 :root {
