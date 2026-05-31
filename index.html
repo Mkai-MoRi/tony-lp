@@ -1,3 +1,75 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  どこか奇妙な職業体験 ー 真夜中の学芸員 ー  LP              ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  ■ ファイル構成
+    index.html …… ページ本体
+    styles.css …… スタイル（カラーシステム・anomalyシステム含む）
+    script.js  …… インタラクション（メニュー・reveal・KVチェックリスト・anomalyスポットライト）
+    assets/    …… 画像・動画素材
+
+  ■ カラー設計方針
+    トニー・アウスラーの投影作品を舞台にしたイベントLP。
+
+    ピンク/紫（--accent / --violet）
+      → ベースカラー。全セクションで使用OK。投影アートのビビッドな世界観。
+    アイスブルー（--ice）
+      → 情報補助色。時間・リンク・受付情報など。
+    白/グレー（--text / --muted / --dim）
+      → 本文・パネル・ボーダー。
+    ピンク/紫の"強発光"
+      → anomalyシステム専用。後述。
+
+  ■ Anomaly スポットライトシステム
+    「おかしな出来事」など異常キーワードが、スクロールで画面中央に来ると
+    ベースより強いglowで光り、次のキーワードが来ると前のが消えます。
+    常に「今光っているのは1つだけ」。
+
+    【追加方法（単体）】
+    光らせたいテキストを以下で囲む：
+      <span class="anomaly-text" data-anomaly>光らせたいテキスト</span>
+    これだけでOK。JSが data-anomaly を自動検知してスクロール連動で制御。
+
+    【追加方法（シーケンス＝同じ段落内で順番に光らせたい場合）】
+    親要素に data-anomaly-sequence を付け、中の各テキストに data-anomaly を付ける：
+      <p data-anomaly-sequence>
+        <span class="anomaly-text" data-anomaly>最初に光る</span>テキスト
+        <span class="anomaly-text" data-anomaly>次に光る</span>テキスト
+      </p>
+    親が画面に入ると1.4秒間隔で順番に光り、画面外に出ると全リセット。
+
+    【解除方法】
+    <span> を外して中のテキストだけ残す。
+    シーケンスの場合は親の data-anomaly-sequence も外す。
+
+    【現在anomalyが付いているテキスト】
+    - 「おかしな出来事」（イントロ内メール / ステップ04見出し / ステップ04本文）
+    - 「あなたは」「閉館後の美術館へ潜入」（イントロ、シーケンス演出）
+    - 「世界の見え方が少し変わってしまう」（イントロ末尾）
+    - 「動き出す展示物」「呪いの絵」「取り憑いてくる作品」（Company File内）
+    - 「自分自身を見失ったり、作品に魅了されないように」（ステップ04末尾）
+    - 「作品に魅了されないようにお気を付けて…。」（クロージングライン）
+
+    【速度調整】
+    styles.css 末尾の Anomaly Spotlight System セクション内：
+    - .anomaly-text の transition → 光る速度（現在 0.2s）
+    - .anomaly-text.is-anomaly-fading の transition → 消える速度（現在 0.5s）
+    - シーケンスの間隔 → script.js の advanceSequence 内 setTimeout（現在 1400ms）
+
+    【検知範囲調整】
+    script.js 内の各 Observer を変更：
+    - anomalyObserver:  rootMargin "-30% 0px -30% 0px", threshold 0.5
+    - sequenceObserver: threshold 0.45
+
+  ■ その他の仕組み
+    .reveal         → 要素にこのクラスを付けるとスクロールでフェードイン表示。
+    .js-ticket-link → href が script.js の TICKET_URL 定数に自動置換される。
+    .js-x-share     → X（Twitter）シェアリンクが自動生成される。
+    [data-kv-item]  → KVチェックリストボタン。3つ全チェックで目の動画再生。
+    [data-header]   → ヘッダーのスクロール表示制御用。
+    [data-intro-cta] → この要素を通過すると固定CTAが表示される。
+-->
 <!doctype html>
 <html lang="ja">
   <head>
@@ -36,8 +108,12 @@
     </header>
 
     <div class="fixed-cta" aria-label="チケット購入">
-      <a class="cta-button cta-button--fixed js-ticket-link" href="https://l-tike.com/twilight.co.jp/cleaning/">
-        この職業を体験する
+      <a
+        class="cta-button cta-button--fixed cta-button--checklist js-ticket-link"
+        href="https://l-tike.com/twilight.co.jp/cleaning/"
+      >
+        <span class="cta-checklist-box" aria-hidden="true"></span>
+        <span class="cta-checklist-label">この職業を体験する</span>
       </a>
     </div>
 
@@ -82,12 +158,13 @@
             <p class="intro-mail-lead reveal">虎ノ門ヒルズから次の依頼が届きました。</p>
             <div class="intro-mail reveal">
               <p>
-                実は今、TOKYO NODE GALLERYで開催中の展覧会で原因不明の『<span class="anomaly-text" data-anomaly>おかしな出来事</span>』が連続しており、皆様の力をお借りしたいのです。
+                実は今、TOKYO NODE GALLERYで開催中の展覧会で、<br />
+                原因不明の『<span class="anomaly-text" data-anomaly>おかしな出来事</span>』が連続しており、皆様の力をお借りしたいのです。
               </p>
             </div>
-            <p class="reveal">
-              依頼を受けたあなたは『トワイライトミュージアムの学芸員』の職業体験として、<br />
-              閉館後の美術館へ潜入します。
+            <p class="reveal" data-anomaly-sequence>
+              依頼を受けた<span class="anomaly-text" data-anomaly>あなたは</span>『トワイライトミュージアムの学芸員』の職業体験として、<br />
+              <span class="anomaly-text" data-anomaly>閉館後の美術館へ潜入</span>します。
             </p>
             <p class="reveal">暗闇に浮かび上がる昼間とは違う顔をした作品たち。</p>
             <p class="reveal">
@@ -113,14 +190,14 @@
           </a>
 
           <div class="concept-card reveal">
-            <p class="reveal">世の中には様々な職業があります。でもあなたの体はひとつ。</p>
-            <p class="reveal">色々な職業を体験してみたいと思っても、難しい。</p>
-            <p class="reveal">
+            <p>世の中には様々な職業があります。でもあなたの体はひとつ。</p>
+            <p>色々な職業を体験してみたいと思っても、難しい。</p>
+            <p>
               "どこか奇妙な職業体験"はそんな「職業」を<br />
               大人のみなさんに「体験」いただくイベントです。
             </p>
-            <p class="reveal">名前の通り、普通の職業体験ではありません。</p>
-            <p class="reveal">ワクワクに包まれた<br />「どこか奇妙な」職業をお楽しみください。</p>
+            <p>名前の通り、普通の職業体験ではありません。</p>
+            <p>ワクワクに包まれた<br />「どこか奇妙な」職業をお楽しみください。</p>
           </div>
 
           <section class="company-brief reveal" aria-labelledby="company-brief-title">
@@ -234,12 +311,13 @@
         </div>
       </section>
 
-      <section class="section" id="direction" aria-labelledby="direction-title">
+      <section class="section direction-section" id="direction" aria-labelledby="direction-title">
         <div class="section-inner">
           <p class="section-kicker">Creative Direction</p>
           <h2 id="direction-title">企画・クリエイティブディレクション</h2>
-          <div class="profile-group reveal">
-            <article class="profile-card profile-card--company">
+          <div class="direction-panel reveal">
+            <article class="direction-company">
+              <p class="direction-company__label">Production</p>
               <img
                 class="company-logo"
                 src="assets/logo-yugure.webp"
@@ -248,43 +326,56 @@
                 height="88"
               />
             </article>
-            <details class="profile-card">
-              <summary>
-                <span class="profile-photo" aria-hidden="true"></span>
-                <span>
-                  <strong>ろくし</strong>
-                  <small>プロフィール後日追加</small>
-                </span>
-              </summary>
-              <p>Coming Soon</p>
-            </details>
-            <details class="profile-card" open>
-              <summary>
-                <span class="profile-photo" aria-hidden="true"></span>
-                <span>
-                  <strong>MoRi</strong>
-                  <small>ディレクター／クリエイティブディレクター</small>
-                </span>
-              </summary>
-              <p>
-                多摩美術大学大学院修了。VRパフォーミングアートなど体験者の身体動作を研究。修了後、体験設計を軸にフリーランスで活動中。
-              </p>
-              <p>
-                今作では株式会社夕暮れのディレクターとして全体のディレクションやデザインなど担当。株式会社Sallyのディレクターとして過去にはイマーシブサスペンス『盗薬次楽』にてディレクター／デザイナーを務めた。
-              </p>
-            </details>
-            <details class="profile-card">
-              <summary>
-                <span class="profile-photo" aria-hidden="true"></span>
-                <span>
-                  <strong>きださおり</strong>
-                  <small>株式会社夕暮れ代表</small>
-                </span>
-              </summary>
-              <p>
-                心が動く体験の制作。イマーシブ演劇『RE:PLAY AFTER SCHOOL』総合脚本・演出、『キミと青いヨルの』（週刊少年ジャンプ）原作、『泊まれる演劇 QUEEN’S MOTEL』脚本・演出などを担当。株式会社SCRAP執行役員。
-              </p>
-            </details>
+
+            <div class="direction-team">
+              <details class="profile-card profile-card--member profile-card--placeholder">
+                <summary class="profile-card__head">
+                  <span class="profile-photo" aria-hidden="true"></span>
+                  <div class="profile-card__meta">
+                    <strong>ろくし</strong>
+                    <small>プロフィール後日追加</small>
+                  </div>
+                </summary>
+                <div class="profile-card__body">
+                  <p class="profile-card__sample">
+                    サンプルサンプルサンプルサンプルサンプルサンプルサンプルサンプルサンプルサンプルサンプル
+                  </p>
+                </div>
+              </details>
+
+              <details class="profile-card profile-card--member">
+                <summary class="profile-card__head">
+                  <span class="profile-photo" aria-hidden="true"></span>
+                  <div class="profile-card__meta">
+                    <strong>MoRi</strong>
+                    <small>ディレクター／クリエイティブディレクター</small>
+                  </div>
+                </summary>
+                <div class="profile-card__body">
+                  <p>
+                    多摩美術大学大学院修了。VRパフォーミングアートなど体験者の身体動作を研究。修了後、体験設計を軸にフリーランスで活動中。
+                  </p>
+                  <p>
+                    今作では株式会社夕暮れのディレクターとして全体のディレクションやデザインなど担当。株式会社Sallyのディレクターとして過去にはイマーシブサスペンス『盗薬次楽』にてディレクター／デザイナーを務めた。
+                  </p>
+                </div>
+              </details>
+
+              <details class="profile-card profile-card--member">
+                <summary class="profile-card__head">
+                  <span class="profile-photo" aria-hidden="true"></span>
+                  <div class="profile-card__meta">
+                    <strong>きださおり</strong>
+                    <small>株式会社夕暮れ代表</small>
+                  </div>
+                </summary>
+                <div class="profile-card__body">
+                  <p>
+                    心が動く体験の制作。イマーシブ演劇『RE:PLAY AFTER SCHOOL』総合脚本・演出、『キミと青いヨルの』（週刊少年ジャンプ）原作、『泊まれる演劇 QUEEN’S MOTEL』脚本・演出などを担当。株式会社SCRAP執行役員。
+                  </p>
+                </div>
+              </details>
+            </div>
           </div>
         </div>
       </section>
