@@ -115,7 +115,7 @@ a {
   height: var(--header-height);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 10px clamp(16px, 4vw, 44px);
   background: rgba(0, 0, 0, 0.66);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -141,25 +141,6 @@ body.page-has-scrolled .site-header {
   height: 56px;
   background: rgba(0, 0, 0, 0.88);
   border-color: rgba(255, 31, 117, 0.35);
-}
-
-.brand {
-  display: grid;
-  gap: 1px;
-  text-decoration: none;
-  line-height: 1.1;
-}
-
-.brand span {
-  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
-  font-size: 0.72rem;
-  color: var(--muted);
-}
-
-.brand strong {
-  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
-  font-size: clamp(1rem, 4vw, 1.22rem);
-  font-weight: 800;
 }
 
 .menu-toggle {
@@ -339,7 +320,11 @@ body.page-has-scrolled .fixed-cta {
 }
 
 .hero-mobile-art {
+  position: relative;
   width: 100%;
+  aspect-ratio: 941 / 1672;
+  background: #000;
+  overflow: hidden;
 }
 
 .hero-art img {
@@ -511,6 +496,10 @@ body.page-has-scrolled .fixed-cta {
 
 .hero-art.is-video-swapped .kv-layer--eyes {
   opacity: 0;
+}
+
+.hero-art.is-video-swapped .hero-mobile-art .kv-layer--eyes {
+  opacity: 1;
 }
 
 .hero-art.is-return-flicker .hero-switch-video {
@@ -713,6 +702,11 @@ h3 {
   width: min(100% - 36px, 860px);
 }
 
+.intro .section-inner > .cta-button {
+  display: flex;
+  margin-inline: auto;
+}
+
 .intro-copy {
   margin: 0 0 28px;
   color: var(--text);
@@ -724,6 +718,54 @@ h3 {
 
 .intro-copy p {
   margin: 0 0 clamp(24px, 6vw, 46px);
+}
+
+.intro-mail-lead {
+  margin-bottom: clamp(18px, 4vw, 26px);
+}
+
+.intro-mail {
+  position: relative;
+  width: min(100%, 780px);
+  margin: 0 auto clamp(34px, 7vw, 58px);
+  overflow: hidden;
+  font-family:
+    "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", system-ui,
+    sans-serif;
+  text-align: left;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: #e4e8ef;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.32),
+    0 1px 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.intro-mail::before {
+  content: "受信トレイ";
+  display: block;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #5c6573;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: #d8dde6;
+}
+
+.intro-mail::after {
+  content: none;
+}
+
+.intro-mail p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: clamp(16px, 4vw, 22px) clamp(16px, 4vw, 24px);
+  color: #151515;
+  font-size: clamp(0.94rem, 3.2vw, 1.08rem);
+  line-height: 1.75;
+  background: #f7f8fa;
 }
 
 .intro-copy--sub {
@@ -738,25 +780,85 @@ h3 {
 
 .concept-card {
   width: min(100%, 760px);
-  margin: clamp(54px, 10vw, 90px) auto 0;
-  padding: clamp(22px, 5vw, 34px);
+  margin: clamp(28px, 5vw, 48px) auto 0;
+  padding: clamp(14px, 3vw, 20px) clamp(16px, 3.5vw, 22px);
   border: 1px solid rgba(255, 31, 117, 0.28);
   border-radius: 8px;
   background:
     linear-gradient(135deg, rgba(255, 31, 117, 0.08), rgba(122, 69, 255, 0.08)),
     rgba(9, 6, 15, 0.72);
   color: var(--muted);
-  font-size: clamp(1rem, 3.2vw, 1.16rem);
-  line-height: 1.9;
+  font-size: clamp(0.94rem, 2.8vw, 1.05rem);
+  line-height: 1.55;
   box-shadow: 0 18px 80px rgba(0, 0, 0, 0.24);
 }
 
 .concept-card p {
-  margin: 0 0 0.9em;
+  margin: 0 0 0.45em;
 }
 
 .concept-card p:last-child {
   margin-bottom: 0;
+  color: var(--text);
+}
+
+.company-brief {
+  position: relative;
+  width: min(100%, 820px);
+  margin: clamp(42px, 9vw, 86px) auto 0;
+  padding: clamp(22px, 5vw, 36px);
+  overflow: hidden;
+  border: 1px solid rgba(168, 237, 255, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(168, 237, 255, 0.08), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    rgba(6, 7, 12, 0.82);
+  box-shadow: 0 22px 90px rgba(0, 0, 0, 0.34);
+}
+
+.company-brief::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -58px;
+  width: 180px;
+  height: 180px;
+  border: 1px solid rgba(255, 31, 117, 0.24);
+  transform: rotate(18deg);
+  opacity: 0.38;
+}
+
+.company-brief__kicker {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.company-brief h3 {
+  margin: 0 0 clamp(18px, 4vw, 26px);
+  color: var(--text);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+}
+
+.company-brief__body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  color: var(--muted);
+  font-size: clamp(1rem, 3.6vw, 1.14rem);
+  line-height: 1.9;
+}
+
+.company-brief__body p {
+  margin: 0;
+}
+
+.company-brief__body p:first-child {
   color: var(--text);
 }
 
@@ -887,12 +989,7 @@ h3 {
   font-size: 0.9rem;
 }
 
-.info-grid {
-  display: grid;
-  gap: 14px;
-}
-
-.info-card,
+.info-board,
 .profile-card,
 .step-card,
 .work-card,
@@ -909,31 +1006,131 @@ h3 {
   box-shadow: 0 18px 80px rgba(0, 0, 0, 0.28);
 }
 
-.info-card {
-  padding: 20px;
+.info-board {
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, 0.2);
+  background:
+    radial-gradient(circle at 72% 18%, rgba(122, 69, 255, 0.13), transparent 34%),
+    linear-gradient(135deg, rgba(255, 31, 117, 0.055), transparent 40%),
+    rgba(5, 4, 8, 0.88);
 }
 
-.info-card span,
+#info.section {
+  padding: clamp(48px, 9vw, 96px) 0;
+}
+
+#info h2 {
+  margin-bottom: clamp(14px, 3vw, 24px);
+}
+
+#info .section-kicker {
+  margin-bottom: 8px;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: start;
+  padding: clamp(12px, 3vw, 20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.info-row:last-child {
+  border-bottom: 0;
+}
+
+.info-row--date {
+  background:
+    linear-gradient(90deg, rgba(255, 31, 117, 0.12), transparent 42%),
+    rgba(255, 255, 255, 0.035);
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.info-icon {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 31, 117, 0.54);
+  border-radius: 50%;
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  line-height: 1;
+  background: rgba(255, 31, 117, 0.12);
+  box-shadow: 0 0 18px rgba(255, 31, 117, 0.18);
+}
+
+.info-content {
+  min-width: 0;
+}
+
+.info-content p {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(0.94rem, 3.6vw, 1.12rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.info-content small,
+.info-note {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: clamp(0.8rem, 2.8vw, 0.92rem);
+  line-height: 1.5;
+}
+
+.info-date {
+  margin: 0 0 4px;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  font-size: clamp(1.25rem, 5.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.time-list {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+
+.time-list div {
+  display: grid;
+  grid-template-columns: minmax(80px, max-content) 1fr;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.time-list dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.time-list dd {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(0.94rem, 3.2vw, 1.08rem);
+  font-weight: 800;
+}
+
 .soon-label {
   display: inline-flex;
   margin-bottom: 10px;
   color: var(--accent);
   font-size: 0.88rem;
   font-weight: 800;
-}
-
-.info-card p {
-  margin: 0;
-  color: var(--text);
-  font-size: clamp(1rem, 3.8vw, 1.08rem);
-}
-
-.info-card small {
-  display: block;
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 0.88em;
-  line-height: 1.75;
 }
 
 .profile-group {
@@ -1100,6 +1297,68 @@ h3 {
   gap: 28px;
 }
 
+.exhibition-lead {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: clamp(0.82rem, 2.8vw, 0.92rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.exhibition-name {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  font-size: clamp(1.05rem, 4.2vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.exhibition-meta {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.exhibition-meta div {
+  display: grid;
+  grid-template-columns: minmax(72px, max-content) minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: baseline;
+}
+
+.exhibition-meta dt {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.exhibition-meta dd {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(0.88rem, 3vw, 0.98rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+#exhibition .prose p:not(.exhibition-lead):not(.exhibition-name) {
+  margin-bottom: 16px;
+  font-size: clamp(0.92rem, 3.2vw, 1.02rem);
+  line-height: 1.65;
+}
+
+#exhibition .outline-button {
+  width: min(100%, 320px);
+}
+
+#exhibition .section-image {
+  aspect-ratio: 16 / 9;
+}
+
 .section-image {
   width: 100%;
   border: 1px solid var(--line-soft);
@@ -1202,7 +1461,7 @@ h3 {
 .work-thumb--nezu {
   background:
     linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.34)),
-    url("https://twilight.co.jp/cleaning/nezu/img/ogp.png") center / cover;
+    url("https://twilight.co.jp/cleaning/nezu/assets/img/KV_nezu_pc.webp") center / cover;
 }
 
 .work-card--soon .work-thumb {
@@ -1546,12 +1805,28 @@ h3 {
     width: 260px;
   }
 
-  .info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .info-row {
+    grid-template-columns: 148px minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(14px, 3vw, 24px);
   }
 
-  .info-card--wide {
-    grid-column: span 2;
+  .info-row:not(.info-row--date) {
+    min-height: 0;
+  }
+
+  .time-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .time-list div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.035);
   }
 
   .profile-group {
@@ -1591,12 +1866,26 @@ h3 {
 }
 
 @media (min-width: 1040px) {
-  .info-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .info-board {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .info-card--wide {
-    grid-column: span 3;
+  .info-row {
+    grid-template-columns: 128px minmax(0, 1fr);
+  }
+
+  .info-row--date {
+    grid-column: span 2;
+    grid-template-columns: 148px minmax(0, 1fr);
+  }
+
+  .info-row:nth-child(even) {
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .info-row:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .profile-group {

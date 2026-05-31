@@ -20,10 +20,6 @@
     <a class="skip-link" href="#main">本文へ移動</a>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#hero" aria-label="ページ先頭へ">
-        <span>夜の美術館</span>
-        <strong>奇妙職業体験</strong>
-      </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="global-menu">
         <span></span>
         <span></span>
@@ -49,12 +45,15 @@
       <section class="hero" id="hero" aria-labelledby="hero-title">
         <h1 class="sr-only" id="hero-title">どこか奇妙な職業体験 真夜中の学芸員</h1>
         <div class="hero-art">
-          <picture class="hero-mobile-art">
-            <img
-              src="assets/hero-mobile.png"
-              alt="どこか奇妙な職業体験 真夜中の学芸員のキービジュアル。閉館後の暗い展示室に巨大な目の作品が浮かび、手袋をした手が点検チェックリストを持っている。"
-            />
-          </picture>
+          <div
+            class="hero-mobile-art"
+            role="img"
+            aria-label="どこか奇妙な職業体験 真夜中の学芸員のキービジュアル。閉館後の暗い展示室に巨大な目の作品が浮かび、手袋をした手が点検チェックリストを持っている。"
+          >
+            <img class="kv-layer kv-layer--eyes" src="assets/kv-mobile-eyes.png" alt="" />
+            <img class="kv-layer kv-layer--logo" src="assets/kv-mobile-logo-text.png" alt="" />
+            <img class="kv-layer kv-layer--checklist" src="assets/kv-mobile-checklist.png" alt="" />
+          </div>
           <div class="hero-desktop-art" aria-hidden="true">
             <img class="kv-layer kv-layer--eyes" src="assets/kv-desktop-eyes.png" alt="" />
             <video class="kv-layer hero-switch-video" src="assets/kv-eye-switch.mp4" muted playsinline preload="auto" data-hero-video></video>
@@ -79,38 +78,29 @@
         <div class="section-inner">
           <h2 class="sr-only" id="intro-title">イントロ</h2>
           <div class="prose intro-copy">
+            <p class="intro-mail-lead reveal">虎ノ門ヒルズから次の依頼が届きました。</p>
+            <div class="intro-mail reveal">
+              <p>
+                実は今、TOKYO NODE GALLERYで開催中の展覧会で原因不明の『おかしな出来事』が連続しており、皆様の力をお借りしたいのです。
+              </p>
+            </div>
             <p class="reveal">
-              「虎ノ門ヒルズ」で開催されている<br />
-              マルチメディアアートの巨匠、<br />
-              トニー・アウスラーの展覧会会場。
-            </p>
-            <p class="reveal">
-              閉館後の真夜中、<br />
-              どうやら原因不明の<br />
-              「おかしな出来事」や「異変」が<br />
-              起きているみたいです。
-            </p>
-            <p class="reveal">
-              あなたは、閉館後の静寂に包まれた美術館へ、<br />
-              展示物を完璧な状態に戻すため<br />
-              「新米学芸員」として極秘潜入します。
+              依頼を受けたあなたは『トワイライトミュージアムの学芸員』の職業体験として、<br />
+              閉館後の美術館へ潜入します。
             </p>
             <p class="reveal">暗闇に浮かび上がる昼間とは違う顔をした作品たち。</p>
             <p class="reveal">
               館内を巡りながら、<br />
               閉館後ならではのアクションを通じて、<br />
-              何が虚構で、何が現実かを<br />
-              あなたが見極めてください。
+              何が虚構で、何が現実かを見極めていきます。
             </p>
             <p class="reveal">
-              さあ、白い手袋をはめて、<br />
-              少し奇妙な学芸員として、<br />
+              さあ、白い手袋をはめて、少し奇妙な学芸員として、<br />
               真夜中の職業体験を始めましょう。
             </p>
             <p class="reveal">
               この体験を終えた翌朝、<br />
-              あなたはきっと世界の見え方が<br />
-              少し変わってしまうかもしれませんー。
+              あなたはきっと世界の見え方が少し変わってしまうかもしれませんー。
             </p>
           </div>
           <a class="cta-button js-ticket-link reveal" href="https://l-tike.com/twilight.co.jp/cleaning/">
@@ -127,6 +117,19 @@
             <p class="reveal">名前の通り、普通の職業体験ではありません。</p>
             <p class="reveal">ワクワクに包まれた<br />「どこか奇妙な」職業をお楽しみください。</p>
           </div>
+
+          <section class="company-brief reveal" aria-labelledby="company-brief-title">
+            <p class="company-brief__kicker">Company File</p>
+            <h3 id="company-brief-title">あなたが職業体験をする会社</h3>
+            <div class="company-brief__body">
+              <p>
+                トワイライトミュージアムに所属している学芸員は、真夜中だけに活動する、少し奇妙な学芸員です。
+              </p>
+              <p>
+                通常の作品はもちろんですが『動き出す展示物』や『呪いの絵』、『取り憑いてくる作品』も状態チェックを承っております。
+              </p>
+            </div>
+          </section>
         </div>
         <video
           class="cat-walk cat-walk--intro"
@@ -143,55 +146,97 @@
         <div class="section-inner">
           <p class="section-kicker">Event Information</p>
           <h2 id="info-title">職業体験の開催情報</h2>
-          <div class="info-grid reveal">
-            <article class="info-card info-card--wide">
-              <span>日時</span>
-              <p>
-                2026年7月24日（金）〜8月30日（日）のうち25日間<br />
-                木曜19:00〜、金曜・土曜20:00〜、日曜19:00〜
-              </p>
-            </article>
-            <article class="info-card">
-              <span>場所</span>
-              <p>
-                虎ノ門ヒルズ ステーションタワー<br />
-                8階・45階TOKYO NODE<br />
-                （〒105-0001 東京都港区虎ノ門2丁目6−1）<br />
-                <small>受付はこちら</small>
-              </p>
-            </article>
-            <article class="info-card">
-              <span>受付</span>
-              <p>8階</p>
-            </article>
-            <article class="info-card">
-              <span>チケット料金</span>
-              <p>
-                チケット<br />
+          <div class="info-board reveal">
+            <div class="info-row info-row--date">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">01</span>
+                <span>開催日時</span>
+              </div>
+              <div class="info-content">
+                <p class="info-date">2026.7.24（金）〜 8.30（日）</p>
+                <p class="info-note">期間中25日間開催</p>
+                <dl class="time-list">
+                  <div>
+                    <dt>木曜</dt>
+                    <dd>19:00〜</dd>
+                  </div>
+                  <div>
+                    <dt>金曜・土曜</dt>
+                    <dd>20:00〜</dd>
+                  </div>
+                  <div>
+                    <dt>日曜</dt>
+                    <dd>19:00〜</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">02</span>
+                <span>会場</span>
+              </div>
+              <div class="info-content">
+                <p>虎ノ門ヒルズ ステーションタワー</p>
+                <p>8階・45階 TOKYO NODE</p>
+                <small>〒105-0001 東京都港区虎ノ門2丁目6−1</small>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">03</span>
+                <span>受付</span>
+              </div>
+              <div class="info-content">
+                <p>8階</p>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">04</span>
+                <span>チケット</span>
+              </div>
+              <div class="info-content">
+                <p>チケット料金は後日公開</p>
                 <small>本公演の演出の都合上、「トニー・アウスラー展」の一部作品をご鑑賞いただけないエリアがございます。</small>
-              </p>
-            </article>
-            <article class="info-card">
-              <span>学芸員体験人数</span>
-              <p>
-                1人〜<br />
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">05</span>
+                <span>参加人数</span>
+              </div>
+              <div class="info-content">
+                <p>1人〜</p>
                 <small>おひとりでも、お知り合い同士ででも参加していただけます。</small>
-              </p>
-            </article>
-            <article class="info-card">
-              <span>制限時間</span>
-              <p>
-                なし（最終公演のみ60分）<br />
-                <small>22時退館想定のため、最終公演のみ60分制となります。</small>
-              </p>
-            </article>
-            <article class="info-card">
-              <span>体験目安時間</span>
-              <p>
-                約75分<br />
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">06</span>
+                <span>所要時間</span>
+              </div>
+              <div class="info-content">
+                <p>約75分</p>
                 <small>ご自身の進め方や歩くスピードによって異なります。</small>
-              </p>
-            </article>
+              </div>
+            </div>
+
+            <div class="info-row info-row--limit">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">07</span>
+                <span>制限時間</span>
+              </div>
+              <div class="info-content">
+                <p>基本なし</p>
+                <small>22時退館想定のため、最終公演のみ60分制となります。</small>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -262,29 +307,32 @@
               <span class="step-number">02</span>
               <h3>時間になったら受付へ</h3>
               <p>
-                ご予約時間になりましたら、虎ノ門ヒルズ ステーションタワー 8Fの受付までお越しください。
+                ご予約時間になりましたら、<br />
+                虎ノ門ヒルズ ステーションタワー 8Fの受付までお越しください。
               </p>
-              <p>説明は後日公開予定です。</p>
+              <p>（説明説明説明）</p>
               <p>アイテムを受け取ったら職業体験スタート！</p>
               <a href="#" class="text-link">より詳しい行き方はこちら <span>Coming Soon</span></a>
             </article>
             <article class="step-card">
               <span class="step-number">03</span>
-              <h3>閉館後の美術館で状態チェックしよう</h3>
+              <h3>どこか奇妙な学芸員として閉館後の美術館に潜入しましょう！</h3>
               <p>
-                通常の鑑賞時間外である、閉館後の静寂に包まれた美術館へ極秘潜入します。
+                いつもとは雰囲気のちがう閉館後の美術館で、『トワイライトミュージアムの学芸員』の職業体験を行いましょう。
               </p>
-              <p>いつもとは雰囲気の違った美術館で、学芸員として展示室巡回、および作品の状態確認業務を行いましょう。</p>
-              <p>配られたチェックリストを参考にしながら、展示状態を照合していきます。</p>
-              <p>日中とは様子の違う真夜中にうごめく作品を見逃さないように「何が虚構で、何が現実か」しっかりと見極めてください。</p>
+              <p>
+                真夜中にうごめく作品を見逃さないように「何が虚構で、何が現実か」しっかりと見極めてください。
+              </p>
             </article>
             <article class="step-card">
               <span class="step-number">04</span>
-              <h3>異変を見つけたら、展示物を正常な状態に復旧させましょう。</h3>
+              <h3>『おかしな出来事』を見つけて、チェックしましょう</h3>
               <p>
-                チェックリストの中に少し変な項目があるかもしれません。異変を見つけた場合は学芸員のお仕事として、明日の朝に正常な状態で展示会を行えるように、展示物を復旧するようにしましょう。
+                『おかしな出来事』を見つけた場合は、明日の朝に正常な状態で展示会を行えるようにチェックをして先輩学芸員に伝えましょう。
               </p>
-              <p>特段難しいことはございません。</p>
+              <p>
+                難しいことはありませんし、未経験者でも先輩のサポートがありますので、安心してご参加ください。
+              </p>
               <p>ただし、自分自身を見失ったり、作品に魅了されないようにお気を付けて…。</p>
             </article>
           </div>
@@ -298,13 +346,44 @@
             <p class="section-kicker">Exhibition</p>
             <h2 id="exhibition-title">閉館後に入る美術展について</h2>
             <div class="prose reveal">
-              <p>閉館後に入る美術展について、トニー・アウスラー展の詳細は公式サイトをご確認ください。</p>
-              <a class="outline-button" href="https://tokyonode.jp/events/tony-oursler/index.html" target="_blank" rel="noreferrer">
-                トニー・アウスラー展について
+              <p class="exhibition-lead">マルチメディアアートの巨匠、日本初の大規模個展</p>
+              <p class="exhibition-name">
+                トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～
+              </p>
+              <dl class="exhibition-meta">
+                <div>
+                  <dt>会期</dt>
+                  <dd>2026年7月3日（金）～9月27日（日）</dd>
+                </div>
+                <div>
+                  <dt>会場</dt>
+                  <dd>TOKYO NODE GALLERY A/B/C</dd>
+                </div>
+                <div>
+                  <dt>開催時間</dt>
+                  <dd>10:00–19:00（金・土は20:00まで）</dd>
+                </div>
+              </dl>
+              <p>
+                トニー・アウスラー（1957年–）は、映像・彫刻・音・光・言葉を組み合わせた没入型インスタレーションで知られるアーティストです。立体物への映像投影表現を切り開いたパイオニアとして高く評価され、本展では《プライベート》（1994–1997年）や《スペキュラー》（2021年）などの主要作に加え、サイトスペシフィックな最新作を発表します。
+              </p>
+              <a
+                class="outline-button"
+                href="https://www.tokyonode.jp/events/tony-oursler/index.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                公式サイトで詳細を見る
               </a>
             </div>
           </div>
-          <img class="section-image reveal" src="assets/hero-desktop.png" alt="トニー・アウスラー展の作品イメージ" />
+          <img
+            class="section-image reveal"
+            src="assets/tony-oursler-kv.jpg"
+            alt="トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～ キービジュアル"
+            width="1920"
+            height="1080"
+          />
         </div>
       </section>
 
