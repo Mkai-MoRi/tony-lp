@@ -1,7 +1,7 @@
 const TICKET_URL = "https://l-tike.com/twilight.co.jp/cleaning/";
-const SHARE_TEXT = `╋━━━━━━━
-　どこか奇妙な職業体験　（ @yugure_cleaning )
-        　　　　　　　　━━━━━━━╋
+const SHARE_TEXT = `╋━━━━━━━━━━━━━━━━━━━━━━━╋
+　どこか奇妙な職業体験　（ @yugure_cleaning ）
+╋━━━━━━━━━━━━━━━━━━━━━━━╋
 
 #奇妙な職業体験`;
 
@@ -29,6 +29,34 @@ function updateHeader() {
 
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
+
+const introCta = document.querySelector("[data-intro-cta]");
+
+function updateFixedCta() {
+  if (!introCta) {
+    return;
+  }
+
+  const passedIntroCta = introCta.getBoundingClientRect().bottom < 0;
+  document.body.classList.toggle("show-fixed-cta", passedIntroCta);
+}
+
+if (introCta) {
+  if ("IntersectionObserver" in window) {
+    const fixedCtaObserver = new IntersectionObserver(
+      ([entry]) => {
+        const passedIntroCta = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        document.body.classList.toggle("show-fixed-cta", passedIntroCta);
+      },
+      { threshold: 0 },
+    );
+
+    fixedCtaObserver.observe(introCta);
+  }
+
+  window.addEventListener("scroll", updateFixedCta, { passive: true });
+  updateFixedCta();
+}
 
 menuToggle?.addEventListener("click", () => {
   const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
@@ -74,10 +102,30 @@ const kvChecklist = document.querySelector("[data-kv-checklist]");
 const kvButtons = kvChecklist?.querySelectorAll(".kv-check") ?? [];
 const heroArt = document.querySelector(".hero-art");
 const heroVideo = document.querySelector("[data-hero-video]");
+const heroMobileVideo = document.querySelector("[data-hero-video-mobile]");
+const mobileHeroVideos = ["assets/kv-mobile-cat-1.mp4", "assets/kv-mobile-cat-2.mp4"];
 const kvCheckedItems = new Set();
 let heroVideoPlaying = false;
 let heroVideoReturning = false;
 let heroVideoTimer = null;
+
+function isMobileHero() {
+  return window.matchMedia("(max-width: 759px)").matches;
+}
+
+function getActiveHeroVideo() {
+  return isMobileHero() ? heroMobileVideo : heroVideo;
+}
+
+function setRandomMobileHeroVideo() {
+  if (!heroMobileVideo) return;
+
+  const nextVideo = mobileHeroVideos[Math.floor(Math.random() * mobileHeroVideos.length)];
+  if (!heroMobileVideo.src.endsWith(nextVideo)) {
+    heroMobileVideo.src = nextVideo;
+    heroMobileVideo.load();
+  }
+}
 
 function renderKvChecklist() {
   kvButtons.forEach((button) => {
@@ -105,10 +153,11 @@ function finishHeroVideo() {
     heroVideoReturning = false;
     heroArt?.classList.remove("is-video-swapped", "is-return-flicker");
 
-    if (heroVideo) {
-      heroVideo.pause();
-      heroVideo.currentTime = 0;
-    }
+    [heroVideo, heroMobileVideo].forEach((video) => {
+      if (!video) return;
+      video.pause();
+      video.currentTime = 0;
+    });
 
     const thirdButton = kvChecklist?.querySelector('[data-kv-item="2"]');
     kvCheckedItems.delete("2");
@@ -132,9 +181,14 @@ function triggerHeroVideo() {
     heroArt?.classList.remove("is-flicker-before");
     heroArt?.classList.add("is-video-swapped");
 
-    if (heroVideo) {
-      heroVideo.currentTime = 0;
-      heroVideo.play().catch(() => undefined);
+    if (isMobileHero()) {
+      setRandomMobileHeroVideo();
+    }
+
+    const activeHeroVideo = getActiveHeroVideo();
+    if (activeHeroVideo) {
+      activeHeroVideo.currentTime = 0;
+      activeHeroVideo.play().catch(() => undefined);
     }
 
     heroVideoTimer = window.setTimeout(finishHeroVideo, 5300);
@@ -164,5 +218,7 @@ kvButtons.forEach((button) => {
   button.addEventListener("click", handleKvChecklistClick);
 });
 
-heroVideo?.addEventListener("ended", finishHeroVideo);
+[heroVideo, heroMobileVideo].forEach((video) => {
+  video?.addEventListener("ended", finishHeroVideo);
+});
 renderKvChecklist();

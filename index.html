@@ -51,6 +51,7 @@
             aria-label="どこか奇妙な職業体験 真夜中の学芸員のキービジュアル。閉館後の暗い展示室に巨大な目の作品が浮かび、手袋をした手が点検チェックリストを持っている。"
           >
             <img class="kv-layer kv-layer--eyes" src="assets/kv-mobile-eyes.png" alt="" />
+            <video class="kv-layer hero-switch-video hero-switch-video--mobile" muted playsinline preload="auto" data-hero-video-mobile></video>
             <img class="kv-layer kv-layer--logo" src="assets/kv-mobile-logo-text.png" alt="" />
             <img class="kv-layer kv-layer--checklist" src="assets/kv-mobile-checklist.png" alt="" />
           </div>
@@ -103,7 +104,11 @@
               あなたはきっと世界の見え方が少し変わってしまうかもしれませんー。
             </p>
           </div>
-          <a class="cta-button js-ticket-link reveal" href="https://l-tike.com/twilight.co.jp/cleaning/">
+          <a
+            class="cta-button js-ticket-link reveal"
+            href="https://l-tike.com/twilight.co.jp/cleaning/"
+            data-intro-cta
+          >
             この職業を体験する
           </a>
 
@@ -150,23 +155,20 @@
             <div class="info-row info-row--date">
               <div class="info-label">
                 <span class="info-icon" aria-hidden="true">01</span>
-                <span>開催日時</span>
+                <span>日時</span>
               </div>
               <div class="info-content">
                 <p class="info-date">2026.7.24（金）〜 8.30（日）</p>
                 <p class="info-note">期間中25日間開催</p>
+                <p class="time-list__label">公演開始時間（目安）</p>
                 <dl class="time-list">
                   <div>
-                    <dt>木曜</dt>
-                    <dd>19:00〜</dd>
+                    <dt>19:00〜</dt>
+                    <dd>木曜・日曜</dd>
                   </div>
                   <div>
-                    <dt>金曜・土曜</dt>
-                    <dd>20:00〜</dd>
-                  </div>
-                  <div>
-                    <dt>日曜</dt>
-                    <dd>19:00〜</dd>
+                    <dt>20:00〜</dt>
+                    <dd>金曜・土曜</dd>
                   </div>
                 </dl>
               </div>
@@ -175,11 +177,12 @@
             <div class="info-row">
               <div class="info-label">
                 <span class="info-icon" aria-hidden="true">02</span>
-                <span>会場</span>
+                <span>場所</span>
               </div>
               <div class="info-content">
                 <p>虎ノ門ヒルズ ステーションタワー</p>
                 <p>8階・45階 TOKYO NODE</p>
+                <p class="info-reception">受付はこちら：<span>8F</span></p>
                 <small>〒105-0001 東京都港区虎ノ門2丁目6−1</small>
               </div>
             </div>
@@ -187,28 +190,18 @@
             <div class="info-row">
               <div class="info-label">
                 <span class="info-icon" aria-hidden="true">03</span>
-                <span>受付</span>
+                <span>チケット料金</span>
               </div>
               <div class="info-content">
-                <p>8階</p>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="info-label">
-                <span class="info-icon" aria-hidden="true">04</span>
-                <span>チケット</span>
-              </div>
-              <div class="info-content">
-                <p>チケット料金は後日公開</p>
+                <p>後日公開</p>
                 <small>本公演の演出の都合上、「トニー・アウスラー展」の一部作品をご鑑賞いただけないエリアがございます。</small>
               </div>
             </div>
 
             <div class="info-row">
               <div class="info-label">
-                <span class="info-icon" aria-hidden="true">05</span>
-                <span>参加人数</span>
+                <span class="info-icon" aria-hidden="true">04</span>
+                <span>学芸員体験人数</span>
               </div>
               <div class="info-content">
                 <p>1人〜</p>
@@ -216,25 +209,25 @@
               </div>
             </div>
 
-            <div class="info-row">
-              <div class="info-label">
-                <span class="info-icon" aria-hidden="true">06</span>
-                <span>所要時間</span>
-              </div>
-              <div class="info-content">
-                <p>約75分</p>
-                <small>ご自身の進め方や歩くスピードによって異なります。</small>
-              </div>
-            </div>
-
             <div class="info-row info-row--limit">
               <div class="info-label">
-                <span class="info-icon" aria-hidden="true">07</span>
+                <span class="info-icon" aria-hidden="true">05</span>
                 <span>制限時間</span>
               </div>
               <div class="info-content">
                 <p>基本なし</p>
-                <small>22時退館想定のため、最終公演のみ60分制となります。</small>
+                <small>22時退館、最終公演のみ60分制となります。</small>
+              </div>
+            </div>
+
+            <div class="info-row">
+              <div class="info-label">
+                <span class="info-icon" aria-hidden="true">06</span>
+                <span>体験目安時間</span>
+              </div>
+              <div class="info-content">
+                <p>約75分</p>
+                <small>ご自身の進め方や歩くスピードによって異なります。</small>
               </div>
             </div>
           </div>
@@ -247,10 +240,13 @@
           <h2 id="direction-title">企画・クリエイティブディレクション</h2>
           <div class="profile-group reveal">
             <article class="profile-card profile-card--company">
-              <div class="logo-frame">
-                <img src="assets/logo-yugure.png" alt="株式会社夕暮れ" />
-              </div>
-              <p>ロゴ素材は差し替え予定</p>
+              <img
+                class="company-logo"
+                src="assets/logo-yugure.png"
+                alt="株式会社夕暮れ"
+                width="298"
+                height="88"
+              />
             </article>
             <details class="profile-card">
               <summary>
@@ -299,41 +295,57 @@
           <h2 id="system-title">「どこか奇妙な職業体験」のシステム</h2>
           <div class="steps reveal">
             <article class="step-card">
-              <span class="step-number">01</span>
-              <h3>職業体験をする日時を選んで応募をする</h3>
-              <p>まずは、真夜中の学芸員として潜入したい日時を選んでご予約ください。</p>
+              <header class="step-head">
+                <span class="step-number" aria-hidden="true">01</span>
+                <h3>職業体験をする日時を選んで応募をする</h3>
+              </header>
+              <div class="step-body">
+                <p>まずは、真夜中の学芸員として潜入したい日時を選んでご予約ください。</p>
+              </div>
             </article>
             <article class="step-card">
-              <span class="step-number">02</span>
-              <h3>時間になったら受付へ</h3>
-              <p>
-                ご予約時間になりましたら、<br />
-                虎ノ門ヒルズ ステーションタワー 8Fの受付までお越しください。
-              </p>
-              <p>（説明説明説明）</p>
-              <p>アイテムを受け取ったら職業体験スタート！</p>
-              <a href="#" class="text-link">より詳しい行き方はこちら <span>Coming Soon</span></a>
+              <header class="step-head">
+                <span class="step-number" aria-hidden="true">02</span>
+                <h3>時間になったら受付へ</h3>
+              </header>
+              <div class="step-body">
+                <p>
+                  ご予約時間になりましたら、<br />
+                  虎ノ門ヒルズ ステーションタワー 8Fの受付までお越しください。
+                </p>
+                <p>（説明説明説明）</p>
+                <p>アイテムを受け取ったら職業体験スタート！</p>
+                <a href="#" class="text-link">より詳しい行き方はこちら <span>Coming Soon</span></a>
+              </div>
             </article>
             <article class="step-card">
-              <span class="step-number">03</span>
-              <h3>どこか奇妙な学芸員として閉館後の美術館に潜入しましょう！</h3>
-              <p>
-                いつもとは雰囲気のちがう閉館後の美術館で、『トワイライトミュージアムの学芸員』の職業体験を行いましょう。
-              </p>
-              <p>
-                真夜中にうごめく作品を見逃さないように「何が虚構で、何が現実か」しっかりと見極めてください。
-              </p>
+              <header class="step-head">
+                <span class="step-number" aria-hidden="true">03</span>
+                <h3>どこか奇妙な学芸員として閉館後の美術館に潜入しましょう！</h3>
+              </header>
+              <div class="step-body">
+                <p>
+                  いつもとは雰囲気のちがう閉館後の美術館で、『トワイライトミュージアムの学芸員』の職業体験を行いましょう。
+                </p>
+                <p>
+                  真夜中にうごめく作品を見逃さないように「何が虚構で、何が現実か」しっかりと見極めてください。
+                </p>
+              </div>
             </article>
             <article class="step-card">
-              <span class="step-number">04</span>
-              <h3>『おかしな出来事』を見つけて、チェックしましょう</h3>
-              <p>
-                『おかしな出来事』を見つけた場合は、明日の朝に正常な状態で展示会を行えるようにチェックをして先輩学芸員に伝えましょう。
-              </p>
-              <p>
-                難しいことはありませんし、未経験者でも先輩のサポートがありますので、安心してご参加ください。
-              </p>
-              <p>ただし、自分自身を見失ったり、作品に魅了されないようにお気を付けて…。</p>
+              <header class="step-head">
+                <span class="step-number" aria-hidden="true">04</span>
+                <h3>『おかしな出来事』を見つけて、チェックしましょう</h3>
+              </header>
+              <div class="step-body">
+                <p>
+                  『おかしな出来事』を見つけた場合は、明日の朝に正常な状態で展示会を行えるようにチェックをして先輩学芸員に伝えましょう。
+                </p>
+                <p>
+                  難しいことはありませんし、未経験者でも先輩のサポートがありますので、安心してご参加ください。
+                </p>
+                <p>ただし、自分自身を見失ったり、作品に魅了されないようにお気を付けて…。</p>
+              </div>
             </article>
           </div>
           <p class="closing-line reveal">作品に魅了されないようにお気を付けて…。</p>
@@ -341,15 +353,34 @@
       </section>
 
       <section class="section exhibition" id="exhibition" aria-labelledby="exhibition-title">
-        <div class="section-inner split">
-          <div>
-            <p class="section-kicker">Exhibition</p>
-            <h2 id="exhibition-title">閉館後に入る美術展について</h2>
-            <div class="prose reveal">
-              <p class="exhibition-lead">マルチメディアアートの巨匠、日本初の大規模個展</p>
-              <p class="exhibition-name">
-                トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～
+        <div class="section-inner">
+          <article class="exhibition-stage reveal">
+            <header class="exhibition-stage__header">
+              <p class="exhibition-stage__badge">今回の舞台</p>
+              <p class="section-kicker">Exhibition</p>
+              <h2 id="exhibition-title">閉館後に入る美術展</h2>
+              <p class="exhibition-stage__intro">
+                『真夜中の学芸員』の職業体験は、閉館後のこの展覧会の中で行われます。
               </p>
+            </header>
+
+            <figure class="exhibition-visual">
+              <img
+                class="section-image"
+                src="assets/tony-oursler-kv.jpg"
+                alt="トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～ キービジュアル"
+                width="1920"
+                height="1080"
+              />
+            </figure>
+
+            <div class="exhibition-stage__body">
+              <div class="exhibition-head">
+                <p class="exhibition-lead">マルチメディアアートの巨匠、日本初の大規模個展</p>
+                <p class="exhibition-name">
+                  トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～
+                </p>
+              </div>
               <dl class="exhibition-meta">
                 <div>
                   <dt>会期</dt>
@@ -361,11 +392,11 @@
                 </div>
                 <div>
                   <dt>開催時間</dt>
-                  <dd>10:00–19:00（金・土は20:00まで）</dd>
+                  <dd>10:00–19:00<small>（金・土は20:00まで）</small></dd>
                 </div>
               </dl>
-              <p>
-                トニー・アウスラー（1957年–）は、映像・彫刻・音・光・言葉を組み合わせた没入型インスタレーションで知られるアーティストです。立体物への映像投影表現を切り開いたパイオニアとして高く評価され、本展では《プライベート》（1994–1997年）や《スペキュラー》（2021年）などの主要作に加え、サイトスペシフィックな最新作を発表します。
+              <p class="exhibition-about">
+                トニー・アウスラー（1957年–）は、映像・彫刻・音・光・言葉を組み合わせた没入型インスタレーションで知られるアーティストです。立体物への映像投影を切り開いたパイオニアとして、本展では《プライベート》《スペキュラー》などの主要作と最新作を発表します。
               </p>
               <a
                 class="outline-button"
@@ -373,17 +404,10 @@
                 target="_blank"
                 rel="noreferrer"
               >
-                公式サイトで詳細を見る
+                展覧会の公式サイトを見る
               </a>
             </div>
-          </div>
-          <img
-            class="section-image reveal"
-            src="assets/tony-oursler-kv.jpg"
-            alt="トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～ キービジュアル"
-            width="1920"
-            height="1080"
-          />
+          </article>
         </div>
       </section>
 
@@ -399,12 +423,19 @@
       </section>
 
       <section class="section sns-section" id="sns" aria-labelledby="sns-title">
-        <div class="section-inner">
+        <div class="section-inner reveal">
           <p class="section-kicker">Official SNS</p>
           <h2 id="sns-title">この「職業体験」をシェアしよう！</h2>
-          <div class="sns-buttons reveal">
-            <a class="sns-button sns-button--x js-x-share" href="#" target="_blank" rel="noreferrer">Xでシェアする</a>
-            <a class="sns-button" href="https://www.instagram.com/yugure_cleaning/" target="_blank" rel="noreferrer">Instagramを開く</a>
+          <div class="share-actions">
+            <a class="sns-button sns-button--x js-x-share" href="#" target="_blank" rel="noreferrer">Xで投稿する</a>
+            <a
+              class="sns-button sns-button--ig"
+              href="https://www.instagram.com/yugure_cleaning/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagramを開く
+            </a>
           </div>
         </div>
         <video
@@ -432,11 +463,16 @@
               <p>『薬屋のひとりごと』日向夏が脚本！最新の体験型モキュメンタリー</p>
               <a href="https://twilight.co.jp/cleaning/nezu/" target="_blank" rel="noreferrer">詳しくはこちら</a>
             </article>
-            <article class="work-card work-card--soon">
-              <div class="work-thumb" aria-hidden="true"></div>
-              <h3>学校の職業体験</h3>
-              <p>学校のやつもここに記載</p>
-              <span>Coming Soon</span>
+            <article class="work-card">
+              <div class="work-thumb work-thumb--school" aria-hidden="true"></div>
+              <h3>夜の学校調査員</h3>
+              <p>
+                2026年8月、懐中電灯を片手に「夏の夜の学校」へ。あなたが調査員となり、学校に渦巻く噂の真相を追う没入体験です。
+              </p>
+              <p>
+                きださおり×ホリプロステージ 企画第2弾。千代田中学校・高等学校で開催（8月21〜23日・28〜30日の全6日間）。
+              </p>
+              <a href="https://twilight.co.jp/school-researcher/" target="_blank" rel="noreferrer">詳しくはこちら</a>
             </article>
           </div>
         </div>
@@ -529,82 +565,99 @@
         <div class="section-inner">
           <p class="section-kicker">Notes</p>
           <h2 id="notice-title">注意事項</h2>
-          <div class="faq-list notice-accordion reveal">
-            <details>
-              <summary>【お問い合わせ先】</summary>
-              <p>TOKYO NODE インフォメーション（10:00-18:00）<br />メール：tokyonode-info@mori.co.jp</p>
-            </details>
-            <details>
-              <summary>チケットについて</summary>
-              <p>
+          <div class="notice-sheet">
+            <article class="notice-block">
+              <h3>【お問い合わせ先】</h3>
+              <div class="notice-block__body">
+                <p>TOKYO NODE インフォメーション（10:00-18:00）<br />メール：tokyonode-info@mori.co.jp</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>チケットについて</h3>
+              <div class="notice-block__body">
+                <p>
                 本イベントは日時指定予約制です。ご希望の来場日・時間をご選択の上、記載のご来場時間枠の間に、虎ノ門ヒルズ ステーションタワー 8F 特設受付までお越しください。遅刻した場合は、いかなる理由があろうともご入場いただけない可能性がございます。
-              </p>
-              <p>
+                </p>
+                <p>
                 入場受付は公演スタートの15分前より開始いたします。集合時間は、公演スタートの15分前です。公演スタートの15分前までに必ずお越しください。受付時間に遅れますとご参加いただけない場合がございます。
-              </p>
-              <p>
+                </p>
+                <p>
                 例えば、19:15-19:30の時間枠でご予約いただいた方<br />
                 ・集合時間：19:15<br />
                 ・受付時間：19:15-19:30 ※遅刻した場合は、ご入場いただけない可能性がございます。<br />
                 ・体験時間：19:30-20:45 ※目安約75分
-              </p>
-              <p>
+                </p>
+                <p>
                 主催者による中止または施設休館の場合を除き、ご購入後の日時変更・キャンセル・払い戻しは一切いたしかねます。
-              </p>
-              <p>
+                </p>
+                <p>
                 誤購入や、お客様ご自身または同行者の体調不良や感染症の罹患、利用予定の交通機関の欠航・運休・渋滞、台風・大雨や地震などの天候災害、出演者のシフト変更など、あらゆる理由によるキャンセルのお申し出についても、施設が通常どおり開館している場合は払い戻しいたしかねますので、あらかじめご了承ください。
-              </p>
-              <p>
+                </p>
+                <p>
                 営利目的のチケット、グッズ等の転売は禁止させていただきます。また、公演内での配布物の譲渡や転売は、いかなる場合にも固くお断りいたします。
-              </p>
-              <p>荒天や災害などにより公演が中止となる場合は、公式サイト・SNS等でお知らせいたします。※交通費や宿泊費などの補償はいたしかねます。</p>
-              <p>会場の受付にてお連れ様分のチケットをお預かりすることはできません。受付には、皆様お揃いの上お越しください。</p>
-              <p>会場および施設への直接のお問い合わせはご遠慮ください。お問い合わせはすべて上記の窓口にお願いいたします。</p>
-            </details>
-            <details>
-              <summary>チケット購入前の注意事項</summary>
-              <p>体験中、エレベーターによる高所への移動がございます。</p>
-              <p>暗所を含む演出がございます。苦手な方は無理をなさらず、ご自身の体調に合わせてご参加ください。</p>
-            </details>
-            <details>
-              <summary>お子さまの参加について</summary>
-              <p>ベビーカーについては確認中</p>
-              <p>小学生以下のお子様は保護者同伴の場合に限り無料でご参加いただけます。ただし小学生以下のお子様1人の入場につき、18歳以上の保護者1人の付き添いが必要です。</p>
-              <p>体験中は自由行動の時間がございます。はぐれないようご注意ください。</p>
-              <p>中学生以上の方は、チケットをご購入のうえご参加ください。</p>
-              <p>また保護者の方は、青少年育成条例に基づいて、ご本人が条例で定められた時間までにご自宅に着かれますよう、ご指導をお願い申し上げます。</p>
-            </details>
-            <details>
-              <summary>妊娠中の方</summary>
-              <p>美術館内を歩き周ります。十分ご注意ください。</p>
-            </details>
-            <details>
-              <summary>耳、目の不自由な方</summary>
-              <p>役者による演技や映像での演出があるため、公演のすべての内容をお楽しみいただけない可能性がございます。同伴の介助者1名まで無料とさせていただきますので、介助者の方とのご来場を強く推奨いたします。事前に状況をお伺いし、対応の準備を行うため、1週間前までにお問い合わせください。</p>
-            </details>
-            <details>
-              <summary>手の不自由な方</summary>
-              <p>手を使ってアイテムなどを使用する場面があるため、公演のすべての内容をお楽しみいただけない可能性がございます。同伴の介助者1名まで無料とさせていただきますので、介助者の方とのご来場を強く推奨いたします。事前に状況をお伺いし、対応の準備を行うため、1週間前までにお問い合わせください。</p>
-            </details>
-            <details>
-              <summary>車椅子の方</summary>
-              <p>車椅子の方もお一人でお楽しみいただけます。</p>
-            </details>
-            <details>
-              <summary>撮影について</summary>
-              <p>体験中は、写真・動画の撮影が可能です（※一部の部屋を除く）。</p>
-              <p>
+                </p>
+                <p>荒天や災害などにより公演が中止となる場合は、公式サイト・SNS等でお知らせいたします。※交通費や宿泊費などの補償はいたしかねます。</p>
+                <p>会場の受付にてお連れ様分のチケットをお預かりすることはできません。受付には、皆様お揃いの上お越しください。</p>
+                <p>会場および施設への直接のお問い合わせはご遠慮ください。お問い合わせはすべて上記の窓口にお願いいたします。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>チケット購入前の注意事項</h3>
+              <div class="notice-block__body">
+                <p>体験中、エレベーターによる高所への移動がございます。</p>
+                <p>暗所を含む演出がございます。苦手な方は無理をなさらず、ご自身の体調に合わせてご参加ください。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>お子さまの参加について</h3>
+              <div class="notice-block__body">
+                <p>ベビーカーについては確認中</p>
+                <p>小学生以下のお子様は保護者同伴の場合に限り無料でご参加いただけます。ただし小学生以下のお子様1人の入場につき、18歳以上の保護者1人の付き添いが必要です。</p>
+                <p>体験中は自由行動の時間がございます。はぐれないようご注意ください。</p>
+                <p>中学生以上の方は、チケットをご購入のうえご参加ください。</p>
+                <p>また保護者の方は、青少年育成条例に基づいて、ご本人が条例で定められた時間までにご自宅に着かれますよう、ご指導をお願い申し上げます。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>妊娠中の方</h3>
+              <div class="notice-block__body">
+                <p>美術館内を歩き周ります。十分ご注意ください。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>耳、目の不自由な方</h3>
+              <div class="notice-block__body">
+                <p>役者による演技や映像での演出があるため、公演のすべての内容をお楽しみいただけない可能性がございます。同伴の介助者1名まで無料とさせていただきますので、介助者の方とのご来場を強く推奨いたします。事前に状況をお伺いし、対応の準備を行うため、1週間前までにお問い合わせください。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>手の不自由な方</h3>
+              <div class="notice-block__body">
+                <p>手を使ってアイテムなどを使用する場面があるため、公演のすべての内容をお楽しみいただけない可能性がございます。同伴の介助者1名まで無料とさせていただきますので、介助者の方とのご来場を強く推奨いたします。事前に状況をお伺いし、対応の準備を行うため、1週間前までにお問い合わせください。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>車椅子の方</h3>
+              <div class="notice-block__body">
+                <p>車椅子の方もお一人でお楽しみいただけます。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>撮影について</h3>
+              <div class="notice-block__body">
+                <p>体験中は、写真・動画の撮影が可能です（※一部の部屋を除く）。</p>
+                <p>
                 SNS等への投稿はご自身の責任でお願いいたします。なお、以下を含む投稿はご遠慮ください。<br />
                 ・営利目的の投稿<br />
                 ・他者 (他の来場者またはスタッフ含む) のプライバシーを侵害する恐れがあるもの
-              </p>
-              <p>
+                </p>
+                <p>
                 よろしければ、公式ハッシュタグ<br />
                 #奇妙な職業体験<br />
                 #真夜中の学芸員<br />
                 を付けて投稿をお願いします。
-              </p>
-              <p>
+                </p>
+                <p>
                 また、以下のような撮影は禁止とさせていただきます。<br />
                 ・フラッシュの使用<br />
                 ・一脚、三脚、セルフィ―スティック (自撮り棒) 等、撮影補助機材の使用<br />
@@ -612,59 +665,74 @@
                 ・大型機材の持ち込み<br />
                 ・体験中の生配信<br />
                 ・無断での商用撮影
-              </p>
-              <p>周囲の方の体験の妨げになるような行為をお見かけした場合、スタッフよりお声がけの上、退場いただくことがございます。</p>
-            </details>
-            <details>
-              <summary>イベントについて</summary>
-              <p>会場内は一般のお客様もいらっしゃいます。周囲の方のご迷惑にならないようご配慮をお願いいたします。</p>
-              <p>滞在時間はおおよそ75分程度を想定していますが、体験の進め方により前後する場合がございます。</p>
-              <p>建物内はご自身で移動していただきます。歩きやすい靴・動きやすい服装でお越しください。</p>
-              <p>原則、公演中に退場はできません。緊急の場合のみ、お近くのスタッフにお声掛けください。</p>
-              <p>キャスト・スタッフへの接触、暴言、暴力、進行の妨げとなる行為はお控えください。安全上・運営上の理由から、スタッフ判断によりご退場いただく場合があり、その際の返金はいたしかねます。</p>
-              <p>飲酒後・酩酊状態でのご来場はお断りしております。スタッフの判断で入場をお断りする場合があり、その際の返金はいたしかねます。</p>
-            </details>
-            <details>
-              <summary>ロッカーについて</summary>
-              <p>8F、45Fにコインロッカーのご用意がございます。ただしスペースに限りがありますので、大きなお荷物のお持ち込みはご遠慮いただけますようご協力をお願いいたします。</p>
-              <p>
+                </p>
+                <p>周囲の方の体験の妨げになるような行為をお見かけした場合、スタッフよりお声がけの上、退場いただくことがございます。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>イベントについて</h3>
+              <div class="notice-block__body">
+                <p>会場内は一般のお客様もいらっしゃいます。周囲の方のご迷惑にならないようご配慮をお願いいたします。</p>
+                <p>滞在時間はおおよそ75分程度を想定していますが、体験の進め方により前後する場合がございます。</p>
+                <p>建物内はご自身で移動していただきます。歩きやすい靴・動きやすい服装でお越しください。</p>
+                <p>原則、公演中に退場はできません。緊急の場合のみ、お近くのスタッフにお声掛けください。</p>
+                <p>キャスト・スタッフへの接触、暴言、暴力、進行の妨げとなる行為はお控えください。安全上・運営上の理由から、スタッフ判断によりご退場いただく場合があり、その際の返金はいたしかねます。</p>
+                <p>飲酒後・酩酊状態でのご来場はお断りしております。スタッフの判断で入場をお断りする場合があり、その際の返金はいたしかねます。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>ロッカーについて</h3>
+              <div class="notice-block__body">
+                <p>8F、45Fにコインロッカーのご用意がございます。ただしスペースに限りがありますので、大きなお荷物のお持ち込みはご遠慮いただけますようご協力をお願いいたします。</p>
+                <p>
                 サイズと個数：<br />
                 ●小：縦/37.5cm、横/37.5cm、奥行/37.8cm（8階95個、45階170個）<br />
                 ●中：縦/55.8～56cm、横/37.5cm、奥行/37.8cm（8階12個）<br />
                 ●大：縦/85cm、横/37.5cm、奥行/37.8cm（8階6個）<br />
                 ●計：283個
-              </p>
-              <p>仕様：コインリターン式（100円）</p>
-            </details>
-            <details>
-              <summary>持ち込み禁止物について</summary>
-              <p>法令での所持・携帯禁止物、法令により所持・携帯が禁止されている物、公序良俗に反する物を持ち込むことはできません。</p>
-              <p>乗物（※車イスを除く）の会場への持ち込み、会場での使用はできません。また、ローラー付運動靴などで場内を走るのは危険ですのでおやめください。</p>
-              <p>介助犬、盲導犬、聴導犬を除き、動物・ペット類と一緒にイベントを体験することはできません。</p>
-              <p>出演者の入待ち・出待ちはお断り申し上げます。また、出演者に対してのお祝い花（スタンド花、アレンジメント、鉢物、他）は、スペースの都合により、お断り申し上げます。</p>
-            </details>
-            <details>
-              <summary>外国語の対応について</summary>
-              <p>本イベントは外国語の対応はございません。ご注意ください。<br />（This event is only available in Japanese.）</p>
-            </details>
-            <details>
-              <summary>複数回のご参加について</summary>
-              <p>本イベントは複数回ご参加いただいても楽しめる公演となっております。</p>
-            </details>
-            <details>
-              <summary>駐車場について</summary>
-              <p>本イベントチケットのご購入やショップのご利用での駐車サービスはございません。</p>
-              <p>
+                </p>
+                <p>仕様：コインリターン式（100円）</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>持ち込み禁止物について</h3>
+              <div class="notice-block__body">
+                <p>法令での所持・携帯禁止物、法令により所持・携帯が禁止されている物、公序良俗に反する物を持ち込むことはできません。</p>
+                <p>乗物（※車イスを除く）の会場への持ち込み、会場での使用はできません。また、ローラー付運動靴などで場内を走るのは危険ですのでおやめください。</p>
+                <p>介助犬、盲導犬、聴導犬を除き、動物・ペット類と一緒にイベントを体験することはできません。</p>
+                <p>出演者の入待ち・出待ちはお断り申し上げます。また、出演者に対してのお祝い花（スタンド花、アレンジメント、鉢物、他）は、スペースの都合により、お断り申し上げます。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>外国語の対応について</h3>
+              <div class="notice-block__body">
+                <p>本イベントは外国語の対応はございません。ご注意ください。<br />（This event is only available in Japanese.）</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>複数回のご参加について</h3>
+              <div class="notice-block__body">
+                <p>本イベントは複数回ご参加いただいても楽しめる公演となっております。</p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>駐車場について</h3>
+              <div class="notice-block__body">
+                <p>本イベントチケットのご購入やショップのご利用での駐車サービスはございません。</p>
+                <p>
                 虎ノ門ヒルズの駐車場に駐車の場合、TOKYO NODEのレストランまたは虎ノ門ヒルズでのご購入金額に応じたサービスが受けられます。<br />
                 ・1度に￥3,000以上のお買い上げの場合、1時間サービス<br />
                 ・1度に￥5,000以上のお買い上げの場合、2時間サービス<br />
                 (最大3回まで)
-              </p>
-            </details>
-            <details>
-              <summary>当日券について</summary>
-              <p>会場での当日券販売はございません。チケット購入ページよりご購入ください。</p>
-            </details>
+                </p>
+              </div>
+            </article>
+            <article class="notice-block">
+              <h3>当日券について</h3>
+              <div class="notice-block__body">
+                <p>会場での当日券販売はございません。チケット購入ページよりご購入ください。</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -678,8 +746,7 @@
               <h3>演出・脚本</h3>
               <dl>
                 <div><dt>総合演出・総合脚本</dt><dd>きだ さおり</dd></div>
-                <div><dt>総合ディレクター</dt><dd>MoRi</dd></div>
-                <div><dt>デザインディレクション</dt><dd>MoRi</dd></div>
+                <div><dt>総合ディレクター・デザインディレクション</dt><dd>MoRi</dd></div>
                 <div><dt>脚本</dt><dd>ろくし</dd></div>
               </dl>
             </article>
@@ -723,28 +790,48 @@
               <dl>
                 <div><dt>主催・企画制作</dt><dd>TOKYO NODE LAB</dd></div>
                 <div><dt>主催・企画制作</dt><dd>株式会社夕暮れ</dd></div>
-                <div><dt>スペシャルサンクス</dt><dd>トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～</dd></div>
+                <div class="credit-entry credit-entry--wide">
+                  <dt>スペシャルサンクス</dt>
+                  <dd>トニー・アウスラー：技術と霊知のはざま～魔術、メディア、アート～</dd>
+                </div>
               </dl>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="media" aria-labelledby="media-title">
+      <section class="section media-section" id="media" aria-labelledby="media-title">
         <div class="section-inner media-box reveal">
-          <p class="section-kicker">Contact</p>
-          <h2 id="media-title">メディアのみなさん／興味のある企業様へ</h2>
-          <div class="prose">
-            <p>本イベントにご関心をお寄せいただきありがとうございます。</p>
-            <p>
-              取材をご希望のメディア関係者様、または今後の取り組みやコラボレーションにご興味をお持ちの企業様は、下記フォームよりお気軽にお問い合わせください。
-            </p>
-            <p>担当者より追ってご連絡差し上げます。</p>
+          <div class="media-box__head">
+            <p class="section-kicker">Contact</p>
+            <h2 id="media-title">
+              <span class="media-box__eyebrow">Press &amp; Partnership</span>
+              <span class="media-box__title">メディアのみなさん／<br />興味のある企業様へ</span>
+            </h2>
           </div>
-          <a class="outline-button outline-button--contact" href="#" aria-label="お問い合わせフォーム。リンク先は後日公開">
-            お問い合わせはこちら
-          </a>
-          <span class="soon-label">フォームURL 後日公開</span>
+
+          <p class="media-box__lead">
+            取材・コラボレーションのご相談を、専用フォームでお受けしています。
+          </p>
+
+          <div class="media-box__body prose">
+            <p>本イベントにご関心をお寄せいただき、ありがとうございます。</p>
+            <p>
+              メディア関係者様の取材、および今後の取り組みにご興味のある企業様は、下記よりお気軽にお問い合わせください。担当者より追ってご連絡いたします。
+            </p>
+          </div>
+
+          <div class="media-box__cta">
+            <a
+              class="media-contact-button"
+              href="#"
+              aria-label="お問い合わせフォーム。リンク先は後日公開"
+            >
+              <span class="media-contact-button__label">お問い合わせはこちら</span>
+              <span class="media-contact-button__arrow" aria-hidden="true">→</span>
+            </a>
+            <span class="media-soon-badge">フォームURL 後日公開</span>
+          </div>
         </div>
       </section>
 
@@ -784,35 +871,53 @@
         </div>
       </section>
 
-      <section class="section share-final" id="share" aria-labelledby="share-title">
+      <section class="section share-final" id="share" aria-label="拡散">
         <div class="section-inner reveal">
-          <p class="section-kicker">Share</p>
-          <h2 id="share-title">拡散</h2>
           <div class="share-panel">
-            <div>
-              <h3>X</h3>
-              <a href="https://x.com/yugure_cleaning" target="_blank" rel="noreferrer">https://x.com/yugure_cleaning</a>
-            </div>
-            <div>
-              <h3>Instagram</h3>
-              <a href="https://www.instagram.com/yugure_cleaning/" target="_blank" rel="noreferrer">
-                https://www.instagram.com/yugure_cleaning/
-              </a>
-            </div>
-            <pre aria-label="X投稿テンプレート">╋━━━━━━━
-　どこか奇妙な職業体験　（ @yugure_cleaning )
-        　　　　　　　　━━━━━━━╋
+            <div class="share-side">
+              <ul class="share-accounts">
+                <li>
+                  <a
+                    class="share-account share-account--x"
+                    href="https://x.com/yugure_cleaning"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span class="share-account__platform">X</span>
+                    <span class="share-account__handle">@yugure_cleaning</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="share-account share-account--ig"
+                    href="https://www.instagram.com/yugure_cleaning/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span class="share-account__platform">Instagram</span>
+                    <span class="share-account__handle">@yugure_cleaning</span>
+                  </a>
+                </li>
+              </ul>
 
-#奇妙な職業体験</pre>
-            <div class="share-actions">
-              <a class="sns-button sns-button--x js-x-share" href="#" target="_blank" rel="noreferrer">Xで投稿する</a>
-              <a class="sns-button" href="https://www.instagram.com/yugure_cleaning/" target="_blank" rel="noreferrer">
-                Instagramを開く
+              <div class="share-actions">
+                <a class="sns-button sns-button--x js-x-share" href="#" target="_blank" rel="noreferrer">Xで投稿する</a>
+                <a
+                  class="sns-button sns-button--ig"
+                  href="https://www.instagram.com/yugure_cleaning/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Instagramを開く
+                </a>
+              </div>
+            </div>
+
+            <div class="share-cta">
+              <a class="cta-button js-ticket-link" href="https://l-tike.com/twilight.co.jp/cleaning/">
+                この職業を体験する
               </a>
             </div>
-            <a class="cta-button js-ticket-link" href="https://l-tike.com/twilight.co.jp/cleaning/">
-              この職業を体験する
-            </a>
           </div>
         </div>
       </section>
